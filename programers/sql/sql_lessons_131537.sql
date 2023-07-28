@@ -1,0 +1,42 @@
+
+/*
+    SELECT
+    오프라인/온라인 판매 데이터 통합하기
+
+    https://school.programmers.co.kr/learn/courses/30/lessons/131537
+*/
+
+-- 코드를 입력하세요
+SELECT C.SALES_DATE, C.PRODUCT_ID, C.USER_ID, C.SALES_AMOUNT 
+FROM (
+    SELECT 
+        A.ONLINE_SALE_ID, A.USER_ID, A.PRODUCT_ID, A.SALES_AMOUNT, date_format(A.SALES_DATE, '%Y-%m-%d') SALES_DATE
+    FROM ONLINE_SALE A
+    UNION ALL 
+    SELECT 
+        B.OFFLINE_SALE_ID, NULL as USER_ID, B.PRODUCT_ID, B.SALES_AMOUNT, date_format(B.SALES_DATE, '%Y-%m-%d') SALES_DATE
+    FROM OFFLINE_SALE B
+) C 
+WHERE year(C.SALES_DATE) = 2022 AND month(C.SALES_DATE) = 3 
+ORDER BY C.SALES_DATE ASC, C.PRODUCT_ID ASC, C.USER_ID ASC;
+
+/*
+# SELECT *
+# FROM(
+#     SELECT 
+#         DATE_FORMAT(N.SALES_DATE, '%Y-%m-%d') SALES_DATE,
+#         N.PRODUCT_ID,
+#         N.USER_ID,
+#         N.SALES_AMOUNT
+#     FROM ONLINE_SALE N
+#     UNION ALL
+#     SELECT 
+#         DATE_FORMAT(F.SALES_DATE, '%Y-%m-%d') SALES_DATE,
+#         F.PRODUCT_ID,
+#         NULL USER_ID,
+#         F.SALES_AMOUNT
+#     FROM OFFLINE_SALE F
+# ) T
+# WHERE T.SALES_DATE BETWEEN '2022-03-01' AND '2022-03-31'
+# ORDER BY T.SALES_DATE ASC, T.PRODUCT_ID ASC, T.USER_ID ASC
+*/

@@ -1,0 +1,16 @@
+
+/*
+    JOIN
+    상품 별 오프라인 매출 구하기
+
+    https://school.programmers.co.kr/learn/courses/30/lessons/131533
+*/
+
+-- 코드를 입력하세요
+SELECT B.PRODUCT_CODE, SUM(A.SALES_AMOUNT * PRICE) AS SALES
+FROM OFFLINE_SALE A
+INNER JOIN PRODUCT B
+ON
+    A.PRODUCT_ID = B.PRODUCT_ID
+GROUP BY A.PRODUCT_ID
+ORDER BY SALES DESC, B.PRODUCT_CODE ASC
