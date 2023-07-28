@@ -1,0 +1,34 @@
+
+/*
+    SELECT
+    서울에 위치한 식당 목록 출력하기
+
+    https://school.programmers.co.kr/learn/courses/30/lessons/131118
+*/
+
+-- 코드를 입력하세요
+
+SELECT 
+    A.REST_ID, A.REST_NAME, A.FOOD_TYPE, A.FAVORITES, A.ADDRESS, ROUND(AVG(B.REVIEW_SCORE), 2) AS SCORE 
+FROM 
+    REST_INFO A
+INNER JOIN 
+    REST_REVIEW B
+ON
+    A.REST_ID = B.REST_ID
+WHERE ADDRESS LIKE '서울%'
+GROUP BY 1
+ORDER BY SCORE DESC, FAVORITES DESC;
+
+# 서울에 있는 식당
+# SELECT *
+# FROM REST_INFO
+# WHERE ADDRESS LIKE '서울%';
+
+# 리뷰
+# SELECT *
+# FROM REST_REVIEW;
+
+# 식당별 리뷰 평균   ex) 00001,00002,00003,00004,00006,00008
+# SELECT ROUND(AVG(REVIEW_SCORE), 2) AS SCORE FROM REST_REVIEW
+# WHERE REST_ID = '00008';
