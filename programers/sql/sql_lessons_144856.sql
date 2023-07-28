@@ -1,0 +1,19 @@
+/*
+    GROUP BY
+    저자 별 카테고리 별 매출액 집계하기
+
+    https://school.programmers.co.kr/learn/courses/30/lessons/144856
+*/
+
+-- 코드를 입력하세요
+SELECT B.AUTHOR_ID, B.AUTHOR_NAME, A.CATEGORY, (SUM(A.PRICE * C.SALES)) as TOTAL_SALES 
+FROM 
+    BOOK A, AUTHOR B, BOOK_SALES C 
+WHERE 
+    A.AUTHOR_ID = B.AUTHOR_ID
+AND 
+    A.BOOK_ID = C.BOOK_ID
+AND 
+    C.SALES_DATE BETWEEN '2022-01-01' AND '2022-01-31' 
+GROUP BY B.AUTHOR_ID, A.CATEGORY 
+ORDER BY B.AUTHOR_ID, A.CATEGORY DESC;
